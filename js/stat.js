@@ -20,8 +20,6 @@ window.renderStatistics = function (ctx, names, times) {
   var histoFieldHeight = 150;
   var histoColumnWidth = 40;
   var histoColumnOffset = 90;
-  var histoMyColor = 'rgba(255, 0, 0, 1)';
-  var histoOthersColor = 'rgba(0, 0, 255,' + Math.random().toFixed(1) + ')';
 
   // максимальное время и шаг для нормирования значений
   var maxTime = Math.max.apply(null, times);
@@ -32,15 +30,19 @@ window.renderStatistics = function (ctx, names, times) {
 
   // гистограмма
   for (var i = 0; i < times.length; i++) {
-      // вывод имен игроков
+    // вывод имен игроков
     ctx.fillText(
         names[i],
         140 + histoColumnOffset * i,
         110 + histoFieldHeight
     );
 
+    // определение цвета для отрисовки столбцов
+    ctx.fillStyle = names[i] === 'Вы' ?
+        'rgba(255, 0, 0, 1)' :
+        'rgba(0, 0, 255,' + (Math.random() + 0.1).toFixed(1) + ')';
+
     // отрисовка столбцов
-    ctx.fillStyle = names[i] === 'Вы' ? histoMyColor : histoOthersColor;
     ctx.fillRect(
         140 + histoColumnOffset * i,
         90 + histoFieldHeight - times[i] * step,
