@@ -2,35 +2,12 @@
 
 (function () {
 
-  // ----- ПЕРЕМЕННЫЕ
 
-
-  var characters = [];      // объекты персонажей
-  var charactersCount = 4;  // количество персонажей
-  var firstNames = [        // набор имен
-    'Иван', 'Хуан Себастьян', 'Мария', 'Кристоф',
-    'Виктор', 'Юлия', 'Люпита', 'Вашингтон'
-  ];
-  var lastNames = [         // набор фамилий
-    'да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко',
-    'Топольницкая', 'Нионго', 'Ирвинг'
-  ];
-  var coatColors = [        // набор цветов плаща
-    'rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)',
-    'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'
-  ];
-  var eyeColors = [         // набор цветов глаз
-    'black', 'red', 'blue', 'yellow', 'green'
-  ];
-
-
-  // ----- ФУНКЦИИ
-
-  /*
+  /* ---------------------------------------------------------------------------
    * Возвращает случайное значение из массива, при этом удаляя его из источника
    *
    * @param {Array.<string>} - массив для обработки
-   * @return {string} - случайное значение из массива
+   * @return {string}
    */
   function randomVariable(array) {
     var index = Math.floor(Math.random() * array.length);
@@ -39,100 +16,173 @@
     return variable;
   }
 
-  /*
-   * Генерирует случайные имя и фамилию
-   *
-   * @return {string} - строка вида 'Имя Фамилия'
-   */
-  function getRandomName() {
-    var randomFirstName = randomVariable(firstNames);
-    var randomLastName = randomVariable(lastNames);
 
-    return randomFirstName + ' ' + randomLastName;
+  /* ---------------------------------------------------------------------------
+   * Возвращает массив случайно сгенерированных строк вида "Имя Фамилия"
+   *
+   * @param {number} - количество персонажей
+   * @return {string}
+   */
+  function getRandomNames(count) {
+    var randomNames = [];
+    var firstNames = [
+      'Иван', 'Хуан Себастьян', 'Мария', 'Кристоф',
+      'Виктор', 'Юлия', 'Люпита', 'Вашингтон'
+    ];
+    var lastNames = [
+      'да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко',
+      'Топольницкая', 'Нионго', 'Ирвинг'
+    ];
+
+    for (var i = 0; i < count; i++) {
+      var randomFirstName = randomVariable(firstNames);
+      var randomLastName = randomVariable(lastNames);
+      randomNames[i] = randomFirstName + ' ' + randomLastName;
+    }
+
+    return randomNames;
   }
 
-  /*
-   * Возвращает случайный цвет плаща
+
+  /* ---------------------------------------------------------------------------
+   * Возвращает массив случайно сгенерированных строк с цветами плащей
    *
-   * @return {string} - строка с цветом
+   * @param {number} - количество персонажей
+   * @return {string}
    */
-  function getRandomCoatColor() {
-    return randomVariable(coatColors);
+  function getRandomCoatColors(count) {
+    var randomCoatColors = [];
+    var coatColors = [
+      'rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)',
+      'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'
+    ];
+
+    for (var i = 0; i < count; i++) {
+      randomCoatColors[i] = randomVariable(coatColors);
+    }
+
+    return randomCoatColors;
   }
 
-  /*
-   * Возвращает случайный цвет глаз
+
+  /* ---------------------------------------------------------------------------
+   * Возвращает массив случайно сгенерированных строк с цветами глаз
    *
-   * @return {string} - строка с цветом
+   * @param {number} - количество персонажей
+   * @return {string}
    */
-  function getRandomEyeColor() {
-    return randomVariable(eyeColors);
+  function getRandomEyeColors(count) {
+    var randomEyeColors = [];
+    var eyeColors = [
+      'black', 'red', 'blue', 'yellow', 'green'
+    ];
+
+    for (var i = 0; i < count; i++) {
+      randomEyeColors[i] = randomVariable(eyeColors);
+    }
+
+    return randomEyeColors;
   }
 
-  /*
-   * Создает узел, состоящий из данных конкретного персонажа и возвращает его для дальнейшей обработки
+
+  /* ---------------------------------------------------------------------------
+   * Создает узел из данных конкретного персонажа и возвращает его
    *
-   * @param {HTMLTemplateElement.content} - шаблон, на основании которого создается узел
+   * @param {HTMLTemplateElement.content} - шаблон для создания узла
    * @param {Object} - данные персонажа для вставки в узел
-   *
-   * @return {DocumentFragment} - узел с данными персонажа для дальнейшего объединения в фрагменте
+   * @return {DocumentFragment}
    */
   function createCharacterNode(template, characterObject) {
     var characterNode = template.cloneNode(true);
-    characterNode.querySelector('.setup-similar-label').textContent = characterObject.name;
-    characterNode.querySelector('.wizard-coat').style.fill = characterObject.coatColor;
-    characterNode.querySelector('.wizard-eyes').style.fill = characterObject.eyesColor;
+
+    characterNode.querySelector('.setup-similar-label').textContent =
+      characterObject.name;
+    characterNode.querySelector('.wizard-coat').style.fill =
+      characterObject.coatColor;
+    characterNode.querySelector('.wizard-eyes').style.fill =
+      characterObject.eyesColor;
+
     return characterNode;
   }
 
-  /*
-   * Создает и возвращает DOM-фрагмент,
-   * объединяющий узлы с данными всех созданных персонажей
+
+  /* ---------------------------------------------------------------------------
+   * Создает и возвращает DOM-фрагмент с данными всех персонажей
    *
-   * @return {DocumentFragment} - фрагмент с данными персонажей для вставки в HTML
+   * @param {Array<Object>} - массив с объектами персонажей
+   * @return {DocumentFragment}
    */
-  function createCharactersFragment() {
+  function createCharactersFragment(characters) {
     var template = document.querySelector('#similar-wizard-template').content;
     var fragment = document.createDocumentFragment();
 
-    for (var j = 0; j < charactersCount; j++) {
-      var characterNode = createCharacterNode(template, characters[j]);
+    for (var i = 0; i < characters.length; i++) {
+      var characterNode = createCharacterNode(template, characters[i]);
       fragment.appendChild(characterNode);
     }
 
     return fragment;
   }
 
-  /*
-   * Создает и возвращает объект персонажа
+
+  /* ---------------------------------------------------------------------------
+   * Создает и возвращает массив с объектами персонажей
    *
-   * @return {Object} - объект с заданными полями и сгенерированными для них значениями
+   * @param {number} - количество персонажей
+   * @return {Array<Object>}
    */
-  function createCharacterObject() {
-    var newCharacterObject = {
-      name: getRandomName(),
-      coatColor: getRandomCoatColor(),
-      eyesColor: getRandomEyeColor()
-    };
+  function createSetOfCharacters(count) {
+    var characters = [];
+    var names = getRandomNames(count);
+    var coatColors = getRandomCoatColors(count);
+    var eyeColors = getRandomEyeColors(count);
 
-    return newCharacterObject;
+    for (var i = 0; i < count; i++) {
+      characters[i] = {
+        name: names[i],
+        coatColor: coatColors[i],
+        eyesColor: eyeColors[i]
+      };
+    }
+
+    return characters;
   }
 
 
-  // ----- ОСНОВНОЙ КОД
-
-
-  // Отображение блоков .setup и .setup-similar
-  document.querySelector('.setup').classList.remove('hidden');
-  document.querySelector('.setup-similar').classList.remove('hidden');
-
-  // Создание массива с объектами персонажей
-  for (var i = 0; i < charactersCount; i++) {
-    characters[i] = createCharacterObject();
+  /* ---------------------------------------------------------------------------
+   * Отображает блоки .setup и .setup-similar
+   */
+  function showSetupBlocks() {
+    document.querySelector('.setup').classList.remove('hidden');
+    document.querySelector('.setup-similar').classList.remove('hidden');
   }
 
-  // Вставка фрагмента с данными персонажей в разметку
-  var similarCharacters = document.querySelector('.setup-similar-list');
-  similarCharacters.appendChild(createCharactersFragment());
+
+  /* ---------------------------------------------------------------------------
+   * Вставляет фрагмент в указанную разметку
+   *
+   * @param {DocumentFragment} - фрагмент для вставки в разметку
+   * @param {HTMLElement} - блок разметки HTML
+   */
+  function pasteFragment(fragment, block) {
+    document.querySelector(block).appendChild(fragment);
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Создает набор из необходимого количества персонажей,
+   * преобразовывает его в фрагмент и вставляет в разметку
+   *
+   * @param {number} - количество персонажей
+   */
+  function drawSimilarCharacters(count) {
+    var setOfCharacters = createSetOfCharacters(count);
+    var charactersFragment = createCharactersFragment(setOfCharacters);
+    showSetupBlocks();
+    pasteFragment(charactersFragment, '.setup-similar-list');
+  }
+
+
+  drawSimilarCharacters(4);
 
 })();
