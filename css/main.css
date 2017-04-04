@@ -727,11 +727,17 @@ input[type=radio]:checked + .review-mark-label {
   flex-wrap: nowrap;
 }
 
+.setup-similar-item {
+  width: 150px;
+  height: 230px;
+}
+
 .setup-similar-label {
   margin: 5px;
 
-  color: #fff;
+  text-align: center;
 
+  color: #fff;
 }
 
 .setup-similar-content {
