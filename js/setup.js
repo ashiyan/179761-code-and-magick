@@ -308,20 +308,34 @@
   }
 
 
-  // Подписка на открытие окна настроек
-  document.querySelector('.setup-open').addEventListener('click', setupOpenHandler);
-  document.querySelector('.setup-open').addEventListener('keydown', setupOpenHandler);
+  /* ---------------------------------------------------------------------------
+   * Подписывает элементы на события
+   */
+  function subscribes() {
+    // Подписка на открытие окна настроек
+    document.querySelector('.setup-open').addEventListener('click', setupOpenHandler);
+    document.querySelector('.setup-open').addEventListener('keydown', setupOpenHandler);
 
-  // Подписка на закрытие окна настроек
-  document.querySelector('.setup-close').addEventListener('click', setupCloseHandler);
-  document.querySelector('.setup-close').addEventListener('keydown', setupCloseHandler);
-  document.querySelector('.setup-submit').addEventListener('click', setupCloseHandler);
-  document.querySelector('.setup-submit').addEventListener('keydown', setupCloseHandler);
-  document.body.addEventListener('keydown', setupCloseHandler);
+    // Подписка на закрытие окна настроек
+    document.querySelector('.setup-close').addEventListener('click', setupCloseHandler);
+    document.querySelector('.setup-close').addEventListener('keydown', setupCloseHandler);
+    document.querySelector('.setup-submit').addEventListener('click', setupCloseHandler);
+    document.querySelector('.setup-submit').addEventListener('keydown', setupCloseHandler);
+    document.body.addEventListener('keydown', setupCloseHandler);
 
-  // Подписка на изменение цвета
-  document.querySelector('.wizard-coat').addEventListener('click', changeCoatHandler);
-  document.querySelector('.wizard-eyes').addEventListener('click', changeEyesHandler);
-  document.querySelector('.setup-fireball-wrap').addEventListener('click', changeFireballHandler);
+    // Подписка на изменение цвета
+    document.querySelector('.wizard-coat').addEventListener('click', changeCoatHandler);
+    document.querySelector('.wizard-eyes').addEventListener('click', changeEyesHandler);
+    document.querySelector('.setup-fireball-wrap').addEventListener('click', changeFireballHandler);
+  }
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                  СТАРТ
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+  subscribes();
+
 
 })();
