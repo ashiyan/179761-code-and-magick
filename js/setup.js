@@ -319,8 +319,6 @@
     // Подписка на закрытие окна настроек
     document.querySelector('.setup-close').addEventListener('click', setupCloseHandler);
     document.querySelector('.setup-close').addEventListener('keydown', setupCloseHandler);
-    document.querySelector('.setup-submit').addEventListener('click', setupCloseHandler);
-    document.querySelector('.setup-submit').addEventListener('keydown', setupCloseHandler);
     document.body.addEventListener('keydown', setupCloseHandler);
 
     // Подписка на изменение цвета

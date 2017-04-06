@@ -73,7 +73,7 @@
       <div class="setup-user">
         <img class="setup-user-pic" src="./img/user-1.jpg"/>
         <label>
-          <input type="text" class="setup-user-name" value="Синий Пендальф" min="1" max="50"/>
+          <input type="text" class="setup-user-name" value="Синий Пендальф" pattern="[А-Яа-яA-Za-z0-9 ]{0,50}" required/>
         </label>
       </div>
 
@@ -143,7 +143,7 @@
         <div class="setup-similar-list"><!--Список похожих персонажей--></div>
       </div>
 
-      <button class="button setup-submit">Сохранить</button>
+      <button type="submit" class="button setup-submit">Сохранить</button>
     </div>
   </form>
 </div>
