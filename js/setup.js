@@ -3,6 +3,11 @@
 (function () {
 
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                        ГЕНЕРАЦИЯ ПОХОЖИХ ПЕРСОНАЖЕЙ
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
   /* ---------------------------------------------------------------------------
    * Возвращает случайное значение из массива, при этом удаляя его из источника
    *
@@ -153,8 +158,8 @@
    * Отображает блоки .setup и .setup-similar
    */
   function showSetupBlocks() {
-    document.querySelector('.setup').classList.remove('hidden');
-    document.querySelector('.setup-similar').classList.remove('hidden');
+    // document.querySelector('.setup').classList.remove('hidden');
+    // document.querySelector('.setup-similar').classList.remove('hidden');
   }
 
 
@@ -184,5 +189,153 @@
 
 
   drawSimilarCharacters(4);
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      ОТКРЫТИЕ / ЗАКРЫТИЕ ОКНА НАСТРОЕК
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+  /* ---------------------------------------------------------------------------
+   * Устанавливает логику обработки события открытия окна
+   *
+   * @param {Object} - объект события
+   * @return {boolean}
+   */
+  function setupCanOpen(event) {
+    return event.button === 0 || event.keyCode === 13;
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Устанавливает логику обработки события закрытия окна
+   *
+   * @param {Object} - объект события
+   * @return {boolean}
+   */
+  function setupCanClose(event) {
+    var crossOrButton =
+      event.currentTarget.classList.contains('setup-close') ||
+      event.currentTarget.classList.contains('setup-submit');
+
+    var isInputInactive =
+      document.querySelector('.setup-user-name') !== document.activeElement;
+
+    if (crossOrButton) {
+      return event.button === 0 || event.keyCode === 13;
+    } else if (isInputInactive) {
+      return event.keyCode === 27;
+    }
+
+    return false;
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Возвращает случайный цвет из определенного набора
+   *
+   * @param {string} - название набора
+   * @return {string}
+   */
+  function getNextColor(type) {
+    var colors = {
+      coat: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)',
+        'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
+      eyes: ['black', 'red', 'blue', 'yellow', 'green'],
+      fireball: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848']
+    };
+
+    var index = Math.floor(Math.random() * colors[type].length);
+
+    return colors[type][index];
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Обработчик события открытия окна
+   *
+   * @param {Object} - объект события
+   */
+  function setupOpenHandler(event) {
+    if (setupCanOpen(event)) {
+      document.querySelector('.setup').classList.remove('hidden');
+    }
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Обработчик события закрытия окна
+   *
+   * @param {Object} - объект события
+   */
+  function setupCloseHandler(event) {
+    if (setupCanClose(event)) {
+      document.querySelector('.setup').classList.add('hidden');
+    }
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Обработчик события изменения цвета мантии
+   *
+   * @param {Object} - объект события
+   */
+  function changeCoatHandler(event) {
+    var newColor = getNextColor('coat');
+    document.querySelector('.wizard-coat').style.fill = newColor;
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Обработчик события изменения цвета глаз
+   *
+   * @param {Object} - объект события
+   */
+  function changeEyesHandler(event) {
+    var newColor = getNextColor('eyes');
+    document.querySelector('.wizard-eyes').style.fill = newColor;
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Обработчик события изменения цвета фаербола
+   *
+   * @param {Object} - объект события
+   */
+  function changeFireballHandler(event) {
+    var newColor = getNextColor('fireball');
+    document.querySelector('.setup-fireball-wrap').style.background = newColor;
+  }
+
+
+  /* ---------------------------------------------------------------------------
+   * Подписывает элементы на события
+   */
+  function subscribes() {
+    // Подписка на открытие окна настроек
+    document.querySelector('.setup-open').addEventListener('click', setupOpenHandler);
+    document.querySelector('.setup-open').addEventListener('keydown', setupOpenHandler);
+
+    // Подписка на закрытие окна настроек
+    document.querySelector('.setup-close').addEventListener('click', setupCloseHandler);
+    document.querySelector('.setup-close').addEventListener('keydown', setupCloseHandler);
+    document.querySelector('.setup-submit').addEventListener('click', setupCloseHandler);
+    document.querySelector('.setup-submit').addEventListener('keydown', setupCloseHandler);
+    document.body.addEventListener('keydown', setupCloseHandler);
+
+    // Подписка на изменение цвета
+    document.querySelector('.wizard-coat').addEventListener('click', changeCoatHandler);
+    document.querySelector('.wizard-eyes').addEventListener('click', changeEyesHandler);
+    document.querySelector('.setup-fireball-wrap').addEventListener('click', changeFireballHandler);
+  }
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                  СТАРТ
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+  subscribes();
+
 
 })();
