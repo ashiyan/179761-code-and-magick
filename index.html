@@ -169,65 +169,14 @@
   </div>
 </template>
 
-<script>
-
-  'use strict';
-
-  // ----- ПЕРЕМЕННЫЕ
-
-  var fireballSize = 22;  // размер фаербола
-  var wizardSpeed = 3;    // скорость мага
-  var wizardWidth = 70;   // ширина мага
-
-
-  // ----- ФУНКЦИИ
-
-  /*
-   * Управляет скоростью фаербола в зависимости от направления ветра
-   *
-   * @param {boolean} left  - направление полета фаербола
-   * @return {number}      - скорость полета фаербола
-   */
-  var getFireballSpeed = function (left) {
-    return left ? 5 : 2;
-  };
-
-  /*
-   * Рассчитывает пропорциональную высоту мага
-   *
-   * @return {number} - высота мага
-   */
-  var getWizardHeight = function () {
-    return 1.337 * wizardWidth;
-  };
-
-  /*
-   * Устанавливет положение мага по горизонтали
-   *
-   * @param {number} height - ширина игровой области
-   * @return {number}       - положение мага по горизонтали
-   */
-  var getWizardX = function (width) {
-    // середина горизонтали игрового поля
-    return width / 2 - wizardWidth / 2;
-  };
-
-  /*
-   * Устанавливет положение мага по вертикали
-   *
-   * @param {number} height - высота игровой области
-   * @return {number}       - положение мага по вертикали
-   */
-  var getWizardY = function (height) {
-    // 2/3 от высоты игрового поля
-    return height / 3 - getWizardHeight() / 2;
-  };
-
-</script>
-
+<script src="js/wizards.js"></script>
+<script src="js/data.js"></script>
+<script src="js/setup.js"></script>
+<script src="js/subscribes.js"></script>
+<script src="js/app.js"></script>
+<script src="js/settings.js"></script>
 <script src="js/stat.js"></script>
 <script src="js/game.js"></script>
-<script src="js/setup.js"></script>
 
 </body>
 </html>
