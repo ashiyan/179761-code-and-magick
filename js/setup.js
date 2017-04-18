@@ -116,7 +116,7 @@ window.setup = (function () {
 
   return {
 
-    init: function() {
+    init: function () {
       /* Отрисовка похожих магов */
       similarWizards.draw();
 

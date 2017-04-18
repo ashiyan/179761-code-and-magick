@@ -159,7 +159,7 @@ window.dialog = (function () {
     /* -------------------------------------------------------------------------
      * Инициализирует открытие/закрытие и возможность перетаскивания
      */
-    init: function() {
+    init: function () {
       document.body.addEventListener('keydown', setupCloseHandler);
       element.avatarBody.addEventListener('click', setupOpenHandler);
       element.avatarBody.addEventListener('keydown', setupOpenHandler);
