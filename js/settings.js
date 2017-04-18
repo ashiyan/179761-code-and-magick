@@ -1,7 +1,5 @@
 /* Устанавливает пользовательские настройки игры */
 
-/* global settings */
-
 'use strict';
 
 window.settings = (function () {
