@@ -1,6 +1,6 @@
 /* Инициализирует другие модули */
 
-/* global app, data, subscribes, setup */
+/* global app, data, dialog, setup */
 
 'use strict';
 
@@ -15,9 +15,8 @@ window.app = (function () {
      */
     init: function () {
       data.init(4);
-      subscribes.init();
-      var wizards = data.getWizardList();
-      setup.drawSimilarWizards(wizards);
+      dialog.init();
+      setup.init();
     }
   };
 
