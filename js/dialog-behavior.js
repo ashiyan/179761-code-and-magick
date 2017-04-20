@@ -1,8 +1,8 @@
-/* Позволяет перетаскивать окно диалога при нажатии на аватар */
+/* Allows to drag the dialog window clicking on the avatar */
 
 'use strict';
 
-window.dialog = (function () {
+window.dialogBehavior = (function () {
 
   var element = {
     avatarBody: document.querySelector('.setup-open'),
@@ -16,8 +16,8 @@ window.dialog = (function () {
   var coords = {};
 
   /* ---------------------------------------------------------------------------
-   * Устанавливает логику обработки события закрытия окна
-   * @param {Object} - объект события
+   * Sets the logic for closing window
+   * @param {Object} - event object
    * @return {boolean}
    */
   function isSetupCanClose(event) {
@@ -43,7 +43,7 @@ window.dialog = (function () {
   }
 
   /* ---------------------------------------------------------------------------
-   * Восстанавливает исходную позицию окна после его закрытия
+   * Reset the default dialog window position after reopening
    */
   function resetDialogPosition() {
     if (coords.hasOwnProperty('reset')) {
@@ -53,8 +53,8 @@ window.dialog = (function () {
   }
 
   /* ---------------------------------------------------------------------------
-   * Обработчик события открытия окна
-   * @param {Object} - объект события
+   * Dialog window opening event handler
+   * @param {Object} - event object
    */
   function setupOpenHandler(event) {
     var pressedButton = {
@@ -69,8 +69,8 @@ window.dialog = (function () {
   }
 
   /* ---------------------------------------------------------------------------
-   * Обработчик события закрытия окна
-   * @param {Object} - объект события
+   * Dialog window closing event handler
+   * @param {Object} - event object
    */
   function setupCloseHandler(event) {
     if (isSetupCanClose(event)) {
@@ -80,11 +80,11 @@ window.dialog = (function () {
   }
 
   /* ---------------------------------------------------------------------------
-   * Начало процесса перетаскивания (клик по объекту)
-   * @param {Object} - объект события
+   * Start the drag and drop process (clicking on the object)
+   * @param {Object} - event object
    */
   function startDrag(event) {
-    /* Отмена события при нажатии средней или правой кнопки мыши */
+    /* Cancel event if the middle or right mouse button is pressed */
     var pressed = {
       mouseMiddle: event.button === 1,
       mouseRight: event.button === 2
@@ -93,13 +93,13 @@ window.dialog = (function () {
       return;
     }
 
-    /* Запомнить позицию перед началом перетаскивания */
+    /* Remember position before start dragging */
     coords.start = {
       x: element.dialog.offsetLeft,
       y: element.dialog.offsetTop
     };
 
-    /* Запомнить самую первую позицию для восстановления */
+    /* Remember first position for reset */
     if (!coords.hasOwnProperty('reset')) {
       coords.reset = {
         x: coords.start.x,
@@ -107,7 +107,7 @@ window.dialog = (function () {
       };
     }
 
-    /* Запомнить координаты курсора мышки в момент клика */
+    /* Remember coordinates of mouse cursor at the click moment */
     coords.mouse = {
       x: event.clientX,
       y: event.clientY
@@ -119,8 +119,8 @@ window.dialog = (function () {
   }
 
   /* ---------------------------------------------------------------------------
-   * Отменяет действие события dragover, предусмотренное браузером по умолчанию
-   * @param {Object} - объект события
+   * Canceled browser's default dragover action
+   * @param {Object} - event object
    */
   function dragOver(event) {
     event.preventDefault();
@@ -128,24 +128,24 @@ window.dialog = (function () {
   }
 
   /* ---------------------------------------------------------------------------
-   * Процесс перетаскивания (движение мыши с зажатой кнопкой)
-   * @param {Object} - объект события
+   * Dragging process (moving mouse with button pressed)
+   * @param {Object} - event object
    */
   function processDrag(event) {
-    /* Координаты в процессе драга с корректировкой на курсор */
+    /* Coordinates in the drag process */
     var newCoords = {
       x: coords.start.x + event.clientX - coords.mouse.x,
       y: coords.start.y + event.clientY - coords.mouse.y
     };
 
-    /* Применить координаты */
+    /* Apply coordinates */
     element.dialog.style.left = newCoords.x + 'px';
     element.dialog.style.top = newCoords.y + 'px';
   }
 
   /* ---------------------------------------------------------------------------
-   * Окончание процесса перетаскивания (отпускание кнопки мыши)
-   * @param {Object} - объект события
+   * End of the drag and drop process (release mouse button)
+   * @param {Object} - event object
    */
   function endDrag(event) {
     element.dialog.removeEventListener('mousemove', processDrag);
@@ -157,7 +157,7 @@ window.dialog = (function () {
   return {
 
     /* -------------------------------------------------------------------------
-     * Инициализирует открытие/закрытие и возможность перетаскивания
+     * Initializes opening / closing and dragging abilities
      */
     init: function () {
       document.body.addEventListener('keydown', setupCloseHandler);

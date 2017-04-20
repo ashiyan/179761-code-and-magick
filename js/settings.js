@@ -1,4 +1,4 @@
-/* Устанавливает пользовательские настройки игры */
+/* Sets the user's game settings */
 
 /* global settings */
 
@@ -8,50 +8,54 @@ window.settings = (function () {
 
   return {
 
-    /* размер фаербола */
+    /* fireball size */
     fireballSize: 35,
 
-    /* скорость мага */
+    /* wizard's speed */
     wizardSpeed: 7,
 
-    /* ширина мага */
+    /* wizard's width */
     wizardWidth: 70,
 
     /*
-     * Управляет скоростью фаербола в зависимости от направления ветра
-     * @param {boolean} left - направление полета фаербола
+     * Controls fireball speed depending on wind direction
+     * @param {boolean} left - wind direction
      * @return {number}
      */
     getFireballSpeed: function (left) {
-      return left ? 10 : 7;
+      var speed = left ? 10 : 7;
+      return speed;
     },
 
     /*
-     * Рассчитывает пропорциональную высоту мага
+     * Calculates the proportional wizard's height
      * @return {number}
      */
     getWizardHeight: function () {
-      return 1.337 * settings.wizardWidth;
+      var height = 1.337 * settings.wizardWidth;
+      return height;
     },
 
     /*
-     * Устанавливет положение мага по горизонтали
-     * @param {number} height - ширина игровой области
+     * Set the horizontal position of the wizard
+     * @param {number} height - width of the game area
      * @return {number}
      */
     getWizardX: function (width) {
       // середина горизонтали игрового поля
-      return width / 2 - settings.wizardWidth / 2;
+      var coordX = width / 2 - settings.wizardWidth / 2;
+      return coordX;
     },
 
     /*
-     * Устанавливет положение мага по вертикали
-     * @param {number} height - высота игровой области
+     * Set the vertical position of the wizard
+     * @param {number} height - height of the game area
      * @return {number}
      */
     getWizardY: function (height) {
-      // 2/3 от высоты игрового поля
-      return height / 3 - settings.getWizardHeight() / 2;
+      // 2/3 from the height of the game area
+      var coordY = height / 3 - settings.getWizardHeight() / 2;
+      return coordY;
     }
 
   };
