@@ -1,6 +1,6 @@
-/* Инициализирует другие модули */
+/* Initializes other modules */
 
-/* global app, data, dialog, setup */
+/* global app, data, dialogBehavior, setup */
 
 'use strict';
 
@@ -11,16 +11,16 @@ window.app = (function () {
   return {
 
     /* -------------------------------------------------------------------------
-     * Инициализирует модули приложения
+     * Initializes app's modules
      */
     init: function () {
       data.init(4);
-      dialog.init();
+      dialogBehavior.init();
       setup.init();
     }
   };
 
 })();
 
-/* Запуск инициализации */
+/* Starting initialization */
 app.init();

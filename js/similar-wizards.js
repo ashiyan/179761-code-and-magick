@@ -1,4 +1,4 @@
-/* Создает фрагмент с данными магов для отрисовки */
+/* Generates fragments of similar wizards and draws them */
 
 /* global data */
 
@@ -7,8 +7,8 @@
 window.similarWizards = (function () {
 
   /* ---------------------------------------------------------------------------
-   * Создает и возвращает узел с данными мага
-   * @param {Object} - объект мага
+   * Creates and returns a node with wizard's data
+   * @param {Object} - wizard's object
    * @return {HTMLElement}
    */
   function createNode(wizard) {
@@ -23,8 +23,8 @@ window.similarWizards = (function () {
   }
 
   /* ---------------------------------------------------------------------------
-   * Создает и возвращает DOM-фрагмент, состоящий из узлов с данными магов
-   * @param {Array<Object>} - массив с объектами магов
+   * Creates and returns a DOM fragment containing nodes with wizards data
+   * @param {Array<Object>} - array with wizards objects
    * @return {Document.Fragment}
    */
   function getWizardsFragment(wizardsList) {
@@ -43,7 +43,7 @@ window.similarWizards = (function () {
   return {
 
     /* -------------------------------------------------------------------------
-     * Отрисовывает магов в разделе "Похожие персонажи" окна настроек
+     * Draws wizards in the "Similar characters" section of the settings window
      */
     draw: function () {
       var similarList = document.querySelector('.setup-similar-list');

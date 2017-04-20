@@ -1,4 +1,4 @@
-/* Генерирует и возвращает объекты магов и другие данные */
+/* Generates and returns wizard's objects and other data */
 
 'use strict';
 
@@ -33,41 +33,27 @@ window.data = (function () {
   };
 
   /* ---------------------------------------------------------------------------
-   * Возвращает случайное значение из массива
-   * @param {Array.<string>} - массив для обработки
-   * @param {boolean} - способ получения значения (true - удаление из источника)
-   * @return {string}
-   */
-  function randomGet(array, isPop) {
-    var index = Math.floor(Math.random() * array.length);
-    var variable = array[index];
-    if (isPop) {
-      array.splice(index, 1);
-    }
-    return variable;
-  }
-
-  /* ---------------------------------------------------------------------------
-   * Возвращает массив случайно выбранных значений
-   * @param {Array.<string>} - начальный массив значений
-   * @param {number} - количество
+   * Returns an array with random values
+   * @param {Array.<string>} - array for processing
+   * @param {number} - values count
    * @return {Array.<string>}
    */
-  function getData(array, count) {
+  function randomVariables(array, count) {
     var result = [];
-    var info = array.slice();
+    var random = null;
 
     for (var i = 0; i < count; i++) {
-      result[i] = randomGet(info, true);
+      random = Math.floor(Math.random() * array.length);
+      result.push(array[random]);
     }
 
     return result;
   }
 
   /* ---------------------------------------------------------------------------
-   * Генерирует и возвращает массив полных имен
-   * @param {Array.<string>} - массив имен
-   * @param {Array.<string>} - массив фамилий
+   * Generates and returns an array of full names
+   * @param {Array.<string>} - first names array
+   * @param {Array.<string>} - last names array
    * @return {Array.<string>}
    */
   function makeFullNames(first, last) {
@@ -83,16 +69,15 @@ window.data = (function () {
   return {
 
     /* -------------------------------------------------------------------------
-     * Создает массив с объектами магов
-     * @param {number} - количество
-     * @return {Array<Object>}
+     * Creates an array with wizard's objects
+     * @param {number} - wizard's count
      */
     init: function (count) {
-      var firstNames = getData(information.name.first, count);
-      var lastNames = getData(information.name.last, count);
+      var firstNames = randomVariables(information.name.first, count);
+      var lastNames = randomVariables(information.name.last, count);
       var fullNames = makeFullNames(firstNames, lastNames);
-      var coats = getData(information.color.coat, count);
-      var eyes = getData(information.color.eyes, count);
+      var coats = randomVariables(information.color.coat, count);
+      var eyes = randomVariables(information.color.eyes, count);
 
       for (var i = 0; i < count; i++) {
         wizardList[i] = {
@@ -104,39 +89,29 @@ window.data = (function () {
     },
 
     /* -------------------------------------------------------------------------
-     * Возвращает случайный цвет
-     * @param {string} - тип объекта для покраски
-     * @param {string} - цвет для сравнения
-     * @return {string}
-     */
-    getUniqueColor: function (subject, oldColor) {
-      var palette = information.color[subject];
-      var newColor;
-      var isNotUnique = true;
-
-      while (isNotUnique) {
-        newColor = randomGet(palette, false);
-        if (newColor !== oldColor) {
-          isNotUnique = false;
-        }
-      }
-
-      return newColor;
-    },
-
-    /* -------------------------------------------------------------------------
-     * Возвращает объект мага по индексу
-     * @param {number} - индекс обьявления
+     * Returns wizard's object by index
+     * @param {number} - index
+     * @return {Object}
      */
     getWizard: function (index) {
       return wizardList[index];
     },
 
     /* -------------------------------------------------------------------------
-     * Возвращает массив с объектами магов
+     * Returns an array with wizard's objects
+     * @return {Array<Object>}
      */
     getWizardList: function () {
       return wizardList;
+    },
+
+    /* -------------------------------------------------------------------------
+     * Returns the colors for the required item
+     * @param {string} - item name
+     * @return {Array<string>}
+     */
+    getColor: function (item) {
+      return information.color[item];
     }
 
   };
