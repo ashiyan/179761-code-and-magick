@@ -1,7 +1,5 @@
 /* Initializes other modules */
 
-/* global app, data, dialogBehavior, setup */
-
 'use strict';
 
 window.app = (function () {
@@ -14,13 +12,13 @@ window.app = (function () {
      * Initializes app's modules
      */
     init: function () {
-      data.init(4);
-      dialogBehavior.init();
-      setup.init();
+      window.data.init();
+      window.dialogBehavior.init();
+      window.setup.init();
     }
   };
 
 })();
 
 /* Starting initialization */
-app.init();
+window.app.init();

@@ -1,7 +1,5 @@
 /* Generates fragments of similar wizards and draws them */
 
-/* global data */
-
 'use strict';
 
 window.similarWizards = (function () {
@@ -16,8 +14,8 @@ window.similarWizards = (function () {
     var node = template.cloneNode(true);
 
     node.querySelector('.setup-similar-label').textContent = wizard.name;
-    node.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    node.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    node.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    node.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return node;
   }
@@ -47,7 +45,7 @@ window.similarWizards = (function () {
      */
     draw: function () {
       var similarList = document.querySelector('.setup-similar-list');
-      var wizardList = data.getWizardList();
+      var wizardList = window.data.getWizardList();
       var wizardsFragment = getWizardsFragment(wizardList);
       similarList.appendChild(wizardsFragment);
     }

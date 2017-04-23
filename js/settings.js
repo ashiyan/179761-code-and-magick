@@ -1,7 +1,5 @@
 /* Sets the user's game settings */
 
-/* global settings */
-
 'use strict';
 
 window.settings = (function () {
@@ -32,7 +30,7 @@ window.settings = (function () {
      * @return {number}
      */
     getWizardHeight: function () {
-      var height = 1.337 * settings.wizardWidth;
+      var height = 1.337 * window.settings.wizardWidth;
       return height;
     },
 
@@ -43,7 +41,7 @@ window.settings = (function () {
      */
     getWizardX: function (width) {
       // середина горизонтали игрового поля
-      var coordX = width / 2 - settings.wizardWidth / 2;
+      var coordX = width / 2 - window.settings.wizardWidth / 2;
       return coordX;
     },
 
@@ -54,7 +52,7 @@ window.settings = (function () {
      */
     getWizardY: function (height) {
       // 2/3 from the height of the game area
-      var coordY = height / 3 - settings.getWizardHeight() / 2;
+      var coordY = height / 3 - window.settings.getWizardHeight() / 2;
       return coordY;
     }
 

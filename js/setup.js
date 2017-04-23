@@ -1,7 +1,5 @@
 /* Works with the wizard's settings window */
 
-/* global data, similarWizards */
-
 'use strict';
 
 window.setup = (function () {
@@ -106,14 +104,14 @@ window.setup = (function () {
 
     switch (event.target) {
       case element.coat:
-        window.colorizeElement(element.coat, data.getColor('coat'), fillElement);
+        window.colorizeElement(element.coat, window.data.getColor('coat'), fillElement);
         break;
       case element.eyes:
-        window.colorizeElement(element.eyes, data.getColor('eyes'), fillElement);
+        window.colorizeElement(element.eyes, window.data.getColor('eyes'), fillElement);
         break;
       case element.fireball:
         var fireballElement = document.querySelector('.setup-fireball-wrap');
-        window.colorizeElement(fireballElement, data.getColor('fireball'), changeElementBackground);
+        window.colorizeElement(fireballElement, window.data.getColor('fireball'), changeElementBackground);
         break;
     }
 
@@ -127,9 +125,6 @@ window.setup = (function () {
      * Initializes events subscriptions and draws similar wizards
      */
     init: function () {
-      /* Drawing similar wizards */
-      similarWizards.draw();
-
       /* Subscribing elements to drag-and-drop events */
       element.shop.addEventListener('dragstart', artifactDragStartHandler);
       element.shop.addEventListener('dragend', artifactDragEndHandler);
